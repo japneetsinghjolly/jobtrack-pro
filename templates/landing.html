@@ -1,153 +1,198 @@
 {% extends "base.html" %}
 
-{% block title %}JobTrack Pro — Your career, in control{% endblock %}
+{% block title %}JobTrack Pro — Your Next Opportunity Starts Here{% endblock %}
 
 {% block content %}
-<section class="hero">
-    <div class="hero-copy">
-        <div class="eyebrow">
-            <span class="eyebrow-dot"></span>
-            YOUR CAREER, IN CONTROL
-        </div>
-
-        <h1>
-            Your job search.<br>
-            <span>Finally organized.</span>
-        </h1>
-
-        <p class="hero-subtitle">
-            Keep every application, interview, and follow-up in one
-            calm, clear workspace. Spend less time tracking and
-            more time preparing for your next opportunity.
-        </p>
-
-        <div class="hero-actions">
-            <a class="btn btn-primary btn-lg"
-               href="{{ url_for('register') }}">
-                Get started free <span>→</span>
-            </a>
-
-            <a class="btn btn-secondary btn-lg"
-               href="{{ url_for('login') }}">
-                I have an account
-            </a>
-        </div>
-
-        <div class="hero-proof">
-            <span>✓ Easy to use</span>
-            <span>✓ Private accounts</span>
-            <span>✓ Resume matcher</span>
-        </div>
-    </div>
-
-    <div class="hero-visual">
-        <div class="mock-window">
-            <div class="mock-top">
-                <div class="window-dots">
-                    <i></i><i></i><i></i>
-                </div>
-                <span>YOUR OVERVIEW</span>
+<section class="hero-section">
+    <div class="container hero-grid">
+        <div class="hero-copy">
+            <div class="eyebrow">
+                <span class="eyebrow-dot"></span>
+                YOUR NEXT CHAPTER STARTS HERE
             </div>
 
-            <div class="mock-content">
-                <div class="mock-heading">
-                    <div>
-                        <span class="mini-label">YOUR PROGRESS</span>
-                        <h3>Good things are in progress.</h3>
-                    </div>
-                    <span class="mock-icon">✦</span>
-                </div>
+            <h1>Small steps.<br><span class="gradient-text">Big opportunities.</span></h1>
 
-                <div class="mock-stats">
-                    <div>
-                        <small>Applications</small>
-                        <strong>24</strong>
-                        <span>Applications tracked</span>
-                    </div>
-                    <div>
-                        <small>Interviews</small>
-                        <strong>06</strong>
-                        <span>Keep preparing</span>
-                    </div>
-                    <div>
-                        <small>Offers</small>
-                        <strong>02</strong>
-                        <span>Celebrate progress</span>
-                    </div>
-                </div>
+            <p class="hero-description">
+                Your job search deserves a better system. Organize applications,
+                stay on top of interviews, and move toward your next opportunity
+                with confidence.
+            </p>
 
-                <div class="pipeline-heading">
-                    <h4>Application pipeline</h4>
-                    <span>Preview</span>
-                </div>
+            <div class="hero-actions">
+                {% if current_user() %}
+                    <a href="{{ url_for('dashboard') }}" class="button button-primary button-large">
+                        Go to dashboard <span>→</span>
+                    </a>
+                {% else %}
+                    <a href="{{ url_for('register') }}" class="button button-primary button-large">
+                        Get started for free <span>→</span>
+                    </a>
+                    <a href="{{ url_for('login') }}" class="button button-secondary button-large">
+                        Log in
+                    </a>
+                {% endif %}
+            </div>
 
-                <div class="mock-pipeline">
-                    <div>
-                        <b>Applied</b>
-                        <p>Product Co.<small>Software Engineer</small></p>
-                        <p>Northstar<small>Python Developer</small></p>
-                    </div>
-                    <div>
-                        <b>Interview</b>
-                        <p>Bright Labs<small>Backend Engineer</small></p>
-                        <p>CloudNine<small>SDE Intern</small></p>
-                    </div>
-                    <div>
-                        <b>Offer</b>
-                        <p>Acme Tech<small>Developer Trainee</small></p>
-                    </div>
-                </div>
+            <div class="hero-proof">
+                <span class="proof-icon">✓</span>
+                <span>One organized place for your career journey</span>
+            </div>
 
-                <div class="mock-footer">
-                    <span>✓</span>
-                    One place for the whole journey
-                </div>
+            <div class="hero-benefits">
+                <div><span>✓</span> Track applications</div>
+                <div><span>✓</span> Prepare for interviews</div>
+                <div><span>✓</span> Monitor your progress</div>
             </div>
         </div>
 
-        <div class="floating-tag">
-            <span>✓</span>
-            Interview scheduled
+        <div class="hero-visual">
+            <div class="visual-glow"></div>
+            <div class="mock-window">
+                <div class="mock-topbar">
+                    <div class="window-dots"><i></i><i></i><i></i></div>
+                    <span class="mock-address">app.jobtrackpro.com</span>
+                    <span class="mock-avatar">J</span>
+                </div>
+
+                <div class="mock-content">
+                    <div class="mock-welcome">
+                        <div>
+                            <span class="mini-label">YOUR WORKSPACE</span>
+                            <h3>Your career dashboard</h3>
+                            <p>Here's your job search at a glance.</p>
+                        </div>
+                        <span class="mock-icon">✦</span>
+                    </div>
+
+                    <div class="mock-stats">
+                        <div class="mock-stat">
+                            <span class="stat-icon stat-purple">↗</span>
+                            <span class="stat-label">Applications</span>
+                            <strong>24</strong>
+                            <small>Keep moving forward</small>
+                        </div>
+                        <div class="mock-stat">
+                            <span class="stat-icon stat-blue">◷</span>
+                            <span class="stat-label">Interviews</span>
+                            <strong>06</strong>
+                            <small>Prepare with confidence</small>
+                        </div>
+                    </div>
+
+                    <div class="pipeline-card">
+                        <div class="pipeline-heading">
+                            <div>
+                                <h4>Application pipeline</h4>
+                                <p>Your next opportunity is in progress.</p>
+                            </div>
+                            <span class="pipeline-menu">•••</span>
+                        </div>
+
+                        <div class="pipeline-row">
+                            <span class="company-symbol symbol-one">N</span>
+                            <div class="pipeline-company">
+                                <strong>Software Engineer</strong>
+                                <span>Northstar Technologies</span>
+                            </div>
+                            <span class="status-pill status-interview">Interview</span>
+                        </div>
+
+                        <div class="pipeline-row">
+                            <span class="company-symbol symbol-two">V</span>
+                            <div class="pipeline-company">
+                                <strong>Product Developer</strong>
+                                <span>Vertex Labs</span>
+                            </div>
+                            <span class="status-pill status-review">In review</span>
+                        </div>
+
+                        <div class="pipeline-row">
+                            <span class="company-symbol symbol-three">A</span>
+                            <div class="pipeline-company">
+                                <strong>Junior Data Analyst</strong>
+                                <span>Atlas Digital</span>
+                            </div>
+                            <span class="status-pill status-applied">Applied</span>
+                        </div>
+                    </div>
+
+                    <div class="mock-bottom-note">
+                        <span class="note-check">✓</span>
+                        Every application. One clear plan.
+                    </div>
+                </div>
+            </div>
+
+            <div class="floating-card floating-card-top">
+                <span class="floating-icon">✦</span>
+                <div><strong>Stay organized</strong><small>One step at a time</small></div>
+            </div>
+
+            <div class="floating-card floating-card-bottom">
+                <span class="floating-check">✓</span>
+                <div><strong>Progress made</strong><small>Your effort adds up</small></div>
+            </div>
         </div>
     </div>
 </section>
 
-<section class="feature-strip">
-    <article class="feature-item">
-        <span class="feature-icon">▦</span>
-        <div>
-            <strong>One clear dashboard</strong>
-            <small>Know where everything stands</small>
-        </div>
-    </article>
-
-    <article class="feature-item">
-        <span class="feature-icon">◷</span>
-        <div>
-            <strong>Never miss a date</strong>
-            <small>Track interviews and follow-ups</small>
-        </div>
-    </article>
-
-    <article class="feature-item">
-        <span class="feature-icon">✧</span>
-        <div>
-            <strong>Resume skill matcher</strong>
-            <small>Compare your resume with job posts</small>
-        </div>
-    </article>
+<section class="trust-strip">
+    <div class="container trust-inner">
+        <span>MADE FOR YOUR CAREER JOURNEY</span>
+        <div>Organization <i>·</i> Clarity <i>·</i> Momentum</div>
+    </div>
 </section>
 
-<section class="landing-bottom">
-    <div>
-        <span class="eyebrow">A BETTER WAY TO SEARCH</span>
-        <h2>Make your next move<br>with more confidence.</h2>
-        <p>Build a more organized job search, one application at a time.</p>
-    </div>
+<section class="features-section section-padding">
+    <div class="container">
+        <div class="section-heading">
+            <span class="eyebrow">A SMARTER JOB SEARCH</span>
+            <h2>Everything in its <span class="gradient-text">right place.</span></h2>
+            <p>Spend less time managing the process and more time preparing for the opportunity.</p>
+        </div>
 
-    <a class="btn btn-primary btn-lg"
-       href="{{ url_for('register') }}">
-        Build your tracker <span>→</span>
-    </a>
+        <div class="features-grid">
+            <article class="feature-card">
+                <div class="feature-icon feature-purple">↗</div>
+                <h3>Application tracking</h3>
+                <p>Keep company details, roles, deadlines, and application status organized in one place.</p>
+                <span class="feature-link">Stay on top of every opportunity <span>→</span></span>
+            </article>
+
+            <article class="feature-card">
+                <div class="feature-icon feature-blue">◎</div>
+                <h3>Career dashboard</h3>
+                <p>See your progress at a glance and understand where your job search stands.</p>
+                <span class="feature-link">Make progress visible <span>→</span></span>
+            </article>
+
+            <article class="feature-card">
+                <div class="feature-icon feature-orange">✦</div>
+                <h3>Job matching</h3>
+                <p>Use your job-matching workspace to help organize roles around your skills and interests.</p>
+                <span class="feature-link">Explore your next move <span>→</span></span>
+            </article>
+        </div>
+    </div>
+</section>
+
+<section class="cta-section">
+    <div class="container">
+        <div class="cta-panel">
+            <div class="cta-orb cta-orb-one"></div>
+            <div class="cta-orb cta-orb-two"></div>
+            <div class="cta-content">
+                <span class="cta-eyebrow">YOUR NEXT CHAPTER</span>
+                <h2>Make your next move<br>your best one yet.</h2>
+                <p>Build a more organized, confident job search, one step at a time.</p>
+                {% if current_user() %}
+                    <a href="{{ url_for('dashboard') }}" class="button button-light button-large">Open dashboard <span>→</span></a>
+                {% else %}
+                    <a href="{{ url_for('register') }}" class="button button-light button-large">Create your free account <span>→</span></a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
 </section>
 {% endblock %}
