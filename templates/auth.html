@@ -1,5 +1,199 @@
-{% extends "base.html" %}{% block title %}{{ 'Create account' if mode=='register' else 'Log in' }} — JobTrack Pro{% endblock %}{% block content %}
-<section class="auth-layout"><div class="auth-aside"><div class="auth-aside-icon">J</div><span class="eyebrow">YOUR NEXT CHAPTER</span><h1>Small steps.<br><span>Big opportunities.</span></h1><p>A clear place to organize every application and prepare for every conversation.</p><div class="auth-mini-list">✓ Track applications<br>✓ Prepare for interviews<br>✓ Find your skill gaps</div></div><div class="auth-card"><span class="eyebrow">{{ 'GET STARTED' if mode=='register' else 'WELCOME BACK' }}</span><h2>{{ 'Create your account' if mode=='register' else 'Log in to JobTrack' }}</h2><p class="muted">{{ 'Start organizing your job search in minutes.' if mode=='register' else 'Pick up where your job search left off.' }}</p><form method="post" class="stack-form">{{ form.hidden_tag() }}
-{% if mode=='register' %}<div class="form-field"><label>{{ form.name.label.text }}</label>{{ form.name(class_="input",placeholder="Your name") }}{% for e in form.name.errors %}<small class="field-error">{{ e }}</small>{% endfor %}</div>{% endif %}
-<div class="form-field"><label>{{ form.email.label.text }}</label>{{ form.email(class_="input",placeholder="you@example.com") }}{% for e in form.email.errors %}<small class="field-error">{{ e }}</small>{% endfor %}</div><div class="form-field"><label>Password</label>{{ form.password(class_="input",placeholder="At least 8 characters") }}{% for e in form.password.errors %}<small class="field-error">{{ e }}</small>{% endfor %}</div>
-{% if mode=='register' %}<div class="form-field"><label>Confirm password</label>{{ form.confirm_password(class_="input",placeholder="Enter password again") }}{% for e in form.confirm_password.errors %}<small class="field-error">{{ e }}</small>{% endfor %}</div>{% endif %}<button class="btn btn-primary btn-full" type="submit">{{ 'Create account' if mode=='register' else 'Log in' }} →</button></form><p class="auth-switch">{{ 'Already have an account?' if mode=='register' else "Don't have an account?" }} <a href="{{ url_for('login' if mode=='register' else 'register') }}">{{ 'Log in' if mode=='register' else 'Create one' }}</a></p></div></section>{% endblock %}
+
+{% extends "base.html" %}
+
+{% block title %}Create Account | JobTrack Pro{% endblock %}
+
+{% block content %}
+<div class="auth-page">
+    <div class="auth-layout">
+
+        <!-- Left: Branding panel -->
+        <section class="auth-intro">
+            <a href="{{ url_for('index') }}" class="auth-brand">
+                <div class="brand-logo">
+                    <span>JT</span>
+                </div>
+                <span class="brand-name">JobTrack<span>Pro</span></span>
+            </a>
+
+            <div class="auth-intro-content">
+                <span class="auth-eyebrow">
+                    <span class="eyebrow-dot"></span>
+                    YOUR NEXT CHAPTER
+                </span>
+
+                <h1>
+                    Small steps.<br>
+                    <span>Big opportunities.</span>
+                </h1>
+
+                <p class="auth-description">
+                    A clear place to organize every application,
+                    track your progress, and prepare for every conversation.
+                </p>
+
+                <div class="auth-benefits">
+                    <div class="auth-benefit">
+                        <span class="benefit-check">✓</span>
+                        <span>Track every job application</span>
+                    </div>
+
+                    <div class="auth-benefit">
+                        <span class="benefit-check">✓</span>
+                        <span>Prepare confidently for interviews</span>
+                    </div>
+
+                    <div class="auth-benefit">
+                        <span class="benefit-check">✓</span>
+                        <span>Keep your career journey organized</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="auth-intro-footer">
+                Built for your next big opportunity.
+            </div>
+        </section>
+
+        <!-- Right: Registration form -->
+        <section class="auth-form-section">
+            <div class="auth-card">
+
+                <div class="auth-mobile-brand">
+                    <div class="brand-logo"><span>JT</span></div>
+                    <span class="brand-name">JobTrack<span>Pro</span></span>
+                </div>
+
+                <div class="auth-heading">
+                    <span class="auth-form-eyebrow">GET STARTED</span>
+                    <h2>Create your account</h2>
+                    <p>Start organizing your job search in minutes.</p>
+                </div>
+
+                {% with messages = get_flashed_messages(with_categories=true) %}
+                    {% if messages %}
+                        <div class="auth-messages">
+                            {% for category, message in messages %}
+                                <div class="auth-message {{ category }}">
+                                    {{ message }}
+                                </div>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                {% endwith %}
+
+                <form method="POST"
+                      action="{{ url_for('register') }}"
+                      class="auth-form">
+
+                    <div class="form-field">
+                        <label for="name">Full name</label>
+                        <input
+                            type="text"
+                            id="name"
+                            name="name"
+                            placeholder="Your name"
+                            autocomplete="name"
+                            required
+                        >
+                    </div>
+
+                    <div class="form-field">
+                        <label for="email">Email address</label>
+                        <input
+                            type="email"
+                            id="email"
+                            name="email"
+                            placeholder="you@example.com"
+                            autocomplete="email"
+                            required
+                        >
+                    </div>
+
+                    <div class="form-field">
+                        <label for="password">Password</label>
+                        <input
+                            type="password"
+                            id="password"
+                            name="password"
+                            placeholder="At least 8 characters"
+                            autocomplete="new-password"
+                            minlength="8"
+                            required
+                        >
+                    </div>
+
+                    <div class="form-field">
+                        <label for="confirm_password">Confirm password</label>
+                        <input
+                            type="password"
+                            id="confirm_password"
+                            name="confirm_password"
+                            placeholder="Enter password again"
+                            autocomplete="new-password"
+                            minlength="8"
+                            required
+                        >
+                        <small id="password-feedback" class="password-feedback"></small>
+                    </div>
+
+                    <button type="submit" class="auth-submit">
+                        <span>Create account</span>
+                        <span class="submit-arrow">→</span>
+                    </button>
+                </form>
+
+                <div class="auth-switch">
+                    Already have an account?
+                    <a href="{{ url_for('login') }}">Log in</a>
+                </div>
+
+                <div class="auth-security">
+                    <span class="security-icon">✓</span>
+                    Your career journey, organized in one place.
+                </div>
+            </div>
+        </section>
+
+    </div>
+</div>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    const password = document.getElementById("password");
+    const confirmPassword = document.getElementById("confirm_password");
+    const feedback = document.getElementById("password-feedback");
+    const form = document.querySelector(".auth-form");
+
+    if (!password || !confirmPassword || !feedback || !form) return;
+
+    function checkPasswords() {
+        if (!confirmPassword.value) {
+            feedback.textContent = "";
+            confirmPassword.setCustomValidity("");
+            return;
+        }
+
+        if (password.value !== confirmPassword.value) {
+            feedback.textContent = "Passwords do not match.";
+            confirmPassword.setCustomValidity("Passwords do not match.");
+        } else {
+            feedback.textContent = "Passwords match.";
+            confirmPassword.setCustomValidity("");
+        }
+    }
+
+    password.addEventListener("input", checkPasswords);
+    confirmPassword.addEventListener("input", checkPasswords);
+
+    form.addEventListener("submit", function (event) {
+        checkPasswords();
+
+        if (!form.checkValidity()) {
+            event.preventDefault();
+            form.reportValidity();
+        }
+    });
+});
+</script>
+{% endblock %}
