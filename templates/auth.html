@@ -1,199 +1,146 @@
-
 {% extends "base.html" %}
 
-{% block title %}Create Account | JobTrack Pro{% endblock %}
+{% block title %}{% if request.endpoint == 'login' %}Welcome back{% else %}Create your account{% endif %} | JobTrack Pro{% endblock %}
 
 {% block content %}
 <div class="auth-page">
     <div class="auth-layout">
-
-        <!-- Left: Branding panel -->
         <section class="auth-intro">
             <a href="{{ url_for('index') }}" class="auth-brand">
-                <div class="brand-logo">
-                    <span>JT</span>
-                </div>
-                <span class="brand-name">JobTrack<span>Pro</span></span>
+                <span class="brand-logo"><span>JT</span></span>
+                <span class="brand-name">JobTrack<span class="brand-accent">Pro</span></span>
             </a>
 
             <div class="auth-intro-content">
-                <span class="auth-eyebrow">
-                    <span class="eyebrow-dot"></span>
-                    YOUR NEXT CHAPTER
-                </span>
-
-                <h1>
-                    Small steps.<br>
-                    <span>Big opportunities.</span>
-                </h1>
-
+                <span class="eyebrow"><span class="eyebrow-dot"></span> YOUR NEXT CHAPTER</span>
+                <h1>Small steps.<br><span class="gradient-text">Big opportunities.</span></h1>
                 <p class="auth-description">
-                    A clear place to organize every application,
-                    track your progress, and prepare for every conversation.
+                    A clearer, calmer way to organize your job search and prepare
+                    for the career opportunity you've been working toward.
                 </p>
 
                 <div class="auth-benefits">
-                    <div class="auth-benefit">
-                        <span class="benefit-check">✓</span>
-                        <span>Track every job application</span>
-                    </div>
-
-                    <div class="auth-benefit">
-                        <span class="benefit-check">✓</span>
-                        <span>Prepare confidently for interviews</span>
-                    </div>
-
-                    <div class="auth-benefit">
-                        <span class="benefit-check">✓</span>
-                        <span>Keep your career journey organized</span>
-                    </div>
+                    <div class="auth-benefit"><span class="benefit-check">✓</span> Track every application</div>
+                    <div class="auth-benefit"><span class="benefit-check">✓</span> Prepare for interviews</div>
+                    <div class="auth-benefit"><span class="benefit-check">✓</span> Keep your career goals in focus</div>
                 </div>
             </div>
 
             <div class="auth-intro-footer">
-                Built for your next big opportunity.
+                <span class="intro-footer-mark">✦</span>
+                Your next opportunity starts with one step.
             </div>
         </section>
 
-        <!-- Right: Registration form -->
         <section class="auth-form-section">
             <div class="auth-card">
-
                 <div class="auth-mobile-brand">
-                    <div class="brand-logo"><span>JT</span></div>
-                    <span class="brand-name">JobTrack<span>Pro</span></span>
+                    <span class="brand-logo"><span>JT</span></span>
+                    <span class="brand-name">JobTrack<span class="brand-accent">Pro</span></span>
                 </div>
 
                 <div class="auth-heading">
-                    <span class="auth-form-eyebrow">GET STARTED</span>
-                    <h2>Create your account</h2>
-                    <p>Start organizing your job search in minutes.</p>
+                    <span class="auth-form-eyebrow">
+                        {% if request.endpoint == 'login' %}WELCOME BACK{% else %}GET STARTED{% endif %}
+                    </span>
+                    <h2>
+                        {% if request.endpoint == 'login' %}Welcome back{% else %}Create your account{% endif %}
+                    </h2>
+                    <p>
+                        {% if request.endpoint == 'login' %}
+                            Log in to pick up where you left off.
+                        {% else %}
+                            Start organizing your job search in minutes.
+                        {% endif %}
+                    </p>
                 </div>
 
-                {% with messages = get_flashed_messages(with_categories=true) %}
-                    {% if messages %}
-                        <div class="auth-messages">
-                            {% for category, message in messages %}
-                                <div class="auth-message {{ category }}">
-                                    {{ message }}
-                                </div>
-                            {% endfor %}
-                        </div>
-                    {% endif %}
-                {% endwith %}
-
                 <form method="POST"
-                      action="{{ url_for('register') }}"
+                      action="{{ url_for(request.endpoint) }}"
                       class="auth-form">
 
+                    {% if request.endpoint != 'login' %}
                     <div class="form-field">
                         <label for="name">Full name</label>
-                        <input
-                            type="text"
-                            id="name"
-                            name="name"
-                            placeholder="Your name"
-                            autocomplete="name"
-                            required
-                        >
+                        <input type="text" id="name" name="name"
+                               placeholder="Your name" autocomplete="name" required>
                     </div>
+                    {% endif %}
 
                     <div class="form-field">
                         <label for="email">Email address</label>
-                        <input
-                            type="email"
-                            id="email"
-                            name="email"
-                            placeholder="you@example.com"
-                            autocomplete="email"
-                            required
-                        >
+                        <input type="email" id="email" name="email"
+                               placeholder="you@example.com" autocomplete="email" required>
                     </div>
 
                     <div class="form-field">
                         <label for="password">Password</label>
-                        <input
-                            type="password"
-                            id="password"
-                            name="password"
-                            placeholder="At least 8 characters"
-                            autocomplete="new-password"
-                            minlength="8"
-                            required
-                        >
+                        <input type="password" id="password" name="password"
+                               placeholder="{% if request.endpoint == 'login' %}Enter your password{% else %}At least 8 characters{% endif %}"
+                               autocomplete="{% if request.endpoint == 'login' %}current-password{% else %}new-password{% endif %}"
+                               {% if request.endpoint != 'login' %}minlength="8"{% endif %}
+                               required>
                     </div>
 
+                    {% if request.endpoint != 'login' %}
                     <div class="form-field">
                         <label for="confirm_password">Confirm password</label>
-                        <input
-                            type="password"
-                            id="confirm_password"
-                            name="confirm_password"
-                            placeholder="Enter password again"
-                            autocomplete="new-password"
-                            minlength="8"
-                            required
-                        >
+                        <input type="password" id="confirm_password" name="confirm_password"
+                               placeholder="Enter password again"
+                               autocomplete="new-password" minlength="8" required>
                         <small id="password-feedback" class="password-feedback"></small>
                     </div>
+                    {% endif %}
 
-                    <button type="submit" class="auth-submit">
-                        <span>Create account</span>
-                        <span class="submit-arrow">→</span>
+                    <button type="submit" class="button button-primary auth-submit">
+                        <span>{% if request.endpoint == 'login' %}Log in to your account{% else %}Create account{% endif %}</span>
+                        <span>→</span>
                     </button>
                 </form>
 
                 <div class="auth-switch">
-                    Already have an account?
-                    <a href="{{ url_for('login') }}">Log in</a>
+                    {% if request.endpoint == 'login' %}
+                        Don't have an account? <a href="{{ url_for('register') }}">Sign up</a>
+                    {% else %}
+                        Already have an account? <a href="{{ url_for('login') }}">Log in</a>
+                    {% endif %}
                 </div>
 
                 <div class="auth-security">
                     <span class="security-icon">✓</span>
-                    Your career journey, organized in one place.
+                    One place for your career journey.
                 </div>
             </div>
         </section>
-
     </div>
 </div>
+{% endblock %}
 
+{% block scripts %}
 <script>
 document.addEventListener("DOMContentLoaded", function () {
     const password = document.getElementById("password");
     const confirmPassword = document.getElementById("confirm_password");
     const feedback = document.getElementById("password-feedback");
-    const form = document.querySelector(".auth-form");
 
-    if (!password || !confirmPassword || !feedback || !form) return;
+    if (!password || !confirmPassword || !feedback) return;
 
-    function checkPasswords() {
+    function validatePasswords() {
         if (!confirmPassword.value) {
             feedback.textContent = "";
             confirmPassword.setCustomValidity("");
             return;
         }
 
-        if (password.value !== confirmPassword.value) {
-            feedback.textContent = "Passwords do not match.";
-            confirmPassword.setCustomValidity("Passwords do not match.");
-        } else {
-            feedback.textContent = "Passwords match.";
-            confirmPassword.setCustomValidity("");
-        }
+        const matches = password.value === confirmPassword.value;
+        feedback.textContent = matches ? "Passwords match." : "Passwords do not match.";
+        feedback.classList.toggle("is-valid", matches);
+        confirmPassword.setCustomValidity(matches ? "" : "Passwords do not match.");
     }
 
-    password.addEventListener("input", checkPasswords);
-    confirmPassword.addEventListener("input", checkPasswords);
-
-    form.addEventListener("submit", function (event) {
-        checkPasswords();
-
-        if (!form.checkValidity()) {
-            event.preventDefault();
-            form.reportValidity();
-        }
-    });
+    password.addEventListener("input", validatePasswords);
+    confirmPassword.addEventListener("input", validatePasswords);
 });
 </script>
 {% endblock %}
+
