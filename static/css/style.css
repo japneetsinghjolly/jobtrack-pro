@@ -1,1 +1,27 @@
+```css
+/* =========================================
+   JobTrack Pro — Main Stylesheet
+   ========================================= */
 
+:root {
+    --bg: #f6f8fc;
+    --surface: #ffffff;
+    --surface-soft: #eef2ff;
+    --text: #172033;
+    --muted: #68738a;
+    --primary: #5b5ce2;
+    --primary-hover: #494ac8;
+    --border: #e3e8f1;
+    --success: #16865b;
+    --shadow: 0 16px 45px rgba(35, 45, 85, 0.09);
+    --radius: 18px;
+}
+
+html[data-theme="dark"] {
+    --bg: #101522;
+    --surface: #191f30;
+    --surface-soft: #252c42;
+    --text: #f0f3fc;
+    --muted: #a5aec4;
+    --primary: #9293ff;
+    --primary-hover: #7778
