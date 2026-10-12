@@ -11,7 +11,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from pypdf import PdfReader
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
-from sqlalchemy import or_
+from sqlalchemy import or_ 
 
 app = Flask(__name__)
 app.config["SECRET_KEY"] = os.getenv("SECRET_KEY", "local-development-key-change-for-production")
