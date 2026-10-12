@@ -1,9 +1,13 @@
-```html
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="theme-color" content="#f7f8fc">
+    <meta name="description"
+          content="JobTrack Pro helps you organize job applications, interviews, follow-ups and resume matching.">
 
     <title>{% block title %}JobTrack Pro{% endblock %}</title>
 
@@ -13,82 +17,96 @@
 
     <script>
         try {
-            if (localStorage.getItem("jobtrack-theme") === "dark") {
+            const theme = localStorage.getItem("jobtrack-theme");
+            if (theme === "dark") {
                 document.documentElement.dataset.theme = "dark";
             }
         } catch (e) {}
     </script>
 
-    <!-- IMPORTANT: CSS file path -->
+    <!-- Must match static/css/style.css -->
     <link rel="stylesheet"
-          href="{{ url_for('static', filename='style.css') }}">
+          href="{{ url_for('static', filename='css/style.css') }}">
 
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 
 <body>
+    <header class="topbar">
+        <a class="brand" href="{{ url_for('index') }}">
+            <span class="brand-mark">J</span>
+            <span>JobTrack <em>Pro</em></span>
+        </a>
 
-<header class="topbar">
-    <a class="brand" href="{{ url_for('index') }}">
-        <span class="brand-mark">J</span>
-        JobTrack <em>Pro</em>
-    </a>
-
-    <button class="menu-toggle" type="button"
-            onclick="document.querySelector('.nav-links').classList.toggle('open')"
-            aria-label="Toggle navigation">
-        ☰
-    </button>
-
-    <nav class="nav-links">
-        <button type="button" class="theme-toggle" id="themeToggle">
-            ◐ Theme
+        <button class="menu-toggle" id="menuToggle"
+                type="button" aria-label="Toggle navigation"
+                aria-expanded="false">
+            ☰
         </button>
 
-        {% if current_user() %}
-            <a href="{{ url_for('dashboard') }}">Dashboard</a>
-            <a href="{{ url_for('applications') }}">Applications</a>
-            <a href="{{ url_for('matcher') }}">Resume Matcher <small class="ml-tag">ML</small></a>
-            <a class="nav-add" href="{{ url_for('new_application') }}">+ Add application</a>
+        <nav class="nav-links" id="navLinks">
+            <button class="theme-toggle" id="themeToggle"
+                    type="button" aria-label="Toggle dark mode">
+                ◐ Dark mode
+            </button>
 
-            <form action="{{ url_for('logout') }}" method="post">
-                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
-                <button class="nav-logout" type="submit">Log out</button>
-            </form>
-        {% else %}
-            <a href="{{ url_for('login') }}">Log in</a>
-            <a class="nav-add" href="{{ url_for('register') }}">Create account</a>
-        {% endif %}
-    </nav>
-</header>
+            {% if current_user() %}
+                <a href="{{ url_for('dashboard') }}">Dashboard</a>
+                <a href="{{ url_for('applications') }}">Applications</a>
+                <a href="{{ url_for('matcher') }}">Resume Matcher</a>
 
-<main class="page-shell">
-    {% with messages = get_flashed_messages(with_categories=true) %}
-        {% if messages %}
-            <div class="flash-stack">
-                {% for category, message in messages %}
-                    <div class="flash {{ category }}">
-                        {{ message }}
-                        <button type="button"
-                                onclick="this.parentElement.remove()"
-                                aria-label="Dismiss notification">×</button>
-                    </div>
-                {% endfor %}
-            </div>
-        {% endif %}
-    {% endwith %}
+                <a class="nav-add"
+                   href="{{ url_for('new_application') }}">
+                    + Add application
+                </a>
 
-    {% block content %}{% endblock %}
-</main>
+                <form action="{{ url_for('logout') }}" method="post">
+                    <input type="hidden" name="csrf_token"
+                           value="{{ csrf_token() }}">
+                    <button class="nav-logout" type="submit">
+                        Log out
+                    </button>
+                </form>
+            {% else %}
+                <a href="{{ url_for('login') }}">Log in</a>
+                <a class="nav-add" href="{{ url_for('register') }}">
+                    Get started
+                </a>
+            {% endif %}
+        </nav>
+    </header>
 
-<footer class="footer">
-    <span>JobTrack Pro</span>
-    <span>Organize your next opportunity.</span>
-</footer>
+    <main class="page-shell">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                <div class="flash-stack">
+                    {% for category, message in messages %}
+                        <div class="flash {{ category }}">
+                            <span>{{ message }}</span>
+                            <button type="button"
+                                    aria-label="Dismiss message"
+                                    onclick="this.parentElement.remove()">
+                                ×
+                            </button>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        {% endwith %}
 
-<script src="{{ url_for('static', filename='main.js') }}"></script>
-{% block scripts %}{% endblock %}
+        {% block content %}{% endblock %}
+    </main>
 
+    <footer class="footer">
+        <a class="footer-brand" href="{{ url_for('index') }}">
+            JobTrack <em>Pro</em>
+        </a>
+        <span>Organize your next opportunity.</span>
+    </footer>
+
+    <!-- Must match static/js/main.js -->
+    <script src="{{ url_for('static', filename='js/main.js') }}" defer></script>
+    {% block scripts %}{% endblock %}
 </body>
 </html>
-```
+
