@@ -1,85 +1,50 @@
-
-document.addEventListener("DOMContentLoaded", () => {
-    const root = document.documentElement;
-    const themeToggle = document.getElementById("themeToggle");
-    const menuToggle = document.getElementById("menuToggle");
-    const navLinks = document.getElementById("navLinks");
-
-    // Theme selection
-    function applyTheme(theme) {
-        const dark = theme === "dark";
-
-        if (dark) {
-            root.dataset.theme = "dark";
-        } else {
-            delete root.dataset.theme;
-        }
-
-        if (themeToggle) {
-            themeToggle.textContent = dark ? "☀ Light mode" : "◐ Dark mode";
-            themeToggle.setAttribute("aria-pressed", String(dark));
-        }
-    }
-
-    let savedTheme = "light";
-
-    try {
-        savedTheme = localStorage.getItem("jobtrack-theme") || "light";
-    } catch (error) {
-        // Default to light mode if storage is unavailable.
-    }
-
-    applyTheme(savedTheme);
-
-    if (themeToggle) {
-        themeToggle.addEventListener("click", () => {
-            const nextTheme =
-                root.dataset.theme === "dark" ? "light" : "dark";
-
-            applyTheme(nextTheme);
-
-            try {
-                localStorage.setItem("jobtrack-theme", nextTheme);
-            } catch (error) {
-                // Theme still changes for the current page.
-            }
-        });
-    }
-
+document.addEventListener("DOMContentLoaded", function () {
     // Mobile navigation
-    if (menuToggle && navLinks) {
-        menuToggle.addEventListener("click", () => {
-            const isOpen = navLinks.classList.toggle("open");
+    const menuToggle = document.querySelector(".menu-toggle");
+    const navLinks = document.querySelector(".nav-links");
 
+    if (menuToggle && navLinks) {
+        menuToggle.addEventListener("click", function () {
+            const isOpen = navLinks.classList.toggle("is-open");
             menuToggle.setAttribute("aria-expanded", String(isOpen));
-            menuToggle.textContent = isOpen ? "✕" : "☰";
         });
 
-        navLinks.querySelectorAll("a").forEach((link) => {
-            link.addEventListener("click", () => {
-                navLinks.classList.remove("open");
+        navLinks.querySelectorAll("a").forEach(function (link) {
+            link.addEventListener("click", function () {
+                navLinks.classList.remove("is-open");
                 menuToggle.setAttribute("aria-expanded", "false");
-                menuToggle.textContent = "☰";
             });
         });
+
+        document.addEventListener("keydown", function (event) {
+            if (event.key === "Escape") {
+                navLinks.classList.remove("is-open");
+                menuToggle.setAttribute("aria-expanded", "false");
+            }
+        });
     }
 
-    // Dismissible flash messages
-    document.querySelectorAll(".flash").forEach((message) => {
-        const closeButton = message.querySelector("button");
+    // Dismiss flash notifications
+    document.querySelectorAll(".flash-message").forEach(function (message) {
+        const closeButton = message.querySelector(".flash-close");
 
         if (closeButton) {
-            closeButton.addEventListener("click", () => message.remove());
+            closeButton.addEventListener("click", function () {
+                message.remove();
+            });
         }
+    });
 
-        window.setTimeout(() => {
-            if (message.isConnected) {
-                message.classList.add("flash-hiding");
+    // Small interaction for feature cards
+    document.querySelectorAll(".feature-card").forEach(function (card) {
+        card.addEventListener("pointerdown", function () {
+            card.classList.add("is-pressed");
+        });
 
-                window.setTimeout(() => {
-                    if (message.isConnected) message.remove();
-                }, 250);
-            }
-        }, 6000);
+        ["pointerup", "pointerleave", "pointercancel"].forEach(function (eventName) {
+            card.addEventListener(eventName, function () {
+                card.classList.remove("is-pressed");
+            });
+        });
     });
 });
