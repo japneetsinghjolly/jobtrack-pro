@@ -1,12 +1,15 @@
-''' html
+
 {% extends "base.html" %}
 
-{% block title %}JobTrack Pro — Your job search, organized{% endblock %}
+{% block title %}JobTrack Pro — Your career, in control{% endblock %}
 
 {% block content %}
 <section class="hero">
-    <div>
-        <div class="eyebrow">✦ YOUR CAREER, IN CONTROL</div>
+    <div class="hero-copy">
+        <div class="eyebrow">
+            <span class="eyebrow-dot"></span>
+            YOUR CAREER, IN CONTROL
+        </div>
 
         <h1>
             Your job search.<br>
@@ -14,138 +17,138 @@
         </h1>
 
         <p class="hero-subtitle">
-            Keep every application, interview, and follow-up in one calm,
-            clear workspace. Spend less time tracking and more time preparing.
+            Keep every application, interview, and follow-up in one
+            calm, clear workspace. Spend less time tracking and
+            more time preparing for your next opportunity.
         </p>
 
         <div class="hero-actions">
-            <a class="btn btn-primary btn-lg" href="{{ url_for('register') }}">
-                Get started free →
+            <a class="btn btn-primary btn-lg"
+               href="{{ url_for('register') }}">
+                Get started free <span>→</span>
             </a>
 
-            <a class="btn btn-secondary btn-lg" href="{{ url_for('login') }}">
+            <a class="btn btn-secondary btn-lg"
+               href="{{ url_for('login') }}">
                 I have an account
             </a>
         </div>
 
         <div class="hero-proof">
-            ✓ Simple to use　 ✓ Private by account　 ✓ Resume skill matcher
+            <span>✓ Easy to use</span>
+            <span>✓ Private accounts</span>
+            <span>✓ Resume matcher</span>
         </div>
     </div>
 
     <div class="hero-visual">
         <div class="mock-window">
             <div class="mock-top">
-                ● ● ● <span>YOUR OVERVIEW</span>
+                <div class="window-dots">
+                    <i></i><i></i><i></i>
+                </div>
+                <span>YOUR OVERVIEW</span>
             </div>
 
             <div class="mock-content">
-                <h3>Good things are in progress.</h3>
+                <div class="mock-heading">
+                    <div>
+                        <span class="mini-label">YOUR PROGRESS</span>
+                        <h3>Good things are in progress.</h3>
+                    </div>
+                    <span class="mock-icon">✦</span>
+                </div>
 
                 <div class="mock-stats">
                     <div>
                         <small>Applications</small>
                         <strong>24</strong>
-                        <span>↑ this month</span>
+                        <span>Applications tracked</span>
                     </div>
-
                     <div>
                         <small>Interviews</small>
                         <strong>06</strong>
-                        <span>Keep going</span>
+                        <span>Keep preparing</span>
                     </div>
-
                     <div>
                         <small>Offers</small>
                         <strong>02</strong>
-                        <span>Great progress</span>
+                        <span>Celebrate progress</span>
                     </div>
                 </div>
 
-                <h4>Application pipeline</h4>
+                <div class="pipeline-heading">
+                    <h4>Application pipeline</h4>
+                    <span>Preview</span>
+                </div>
 
                 <div class="mock-pipeline">
                     <div>
                         <b>Applied</b>
-                        <p>
-                            Product Co.
-                            <small>Software Engineer</small>
-                        </p>
-                        <p>
-                            Northstar
-                            <small>Python Developer</small>
-                        </p>
+                        <p>Product Co.<small>Software Engineer</small></p>
+                        <p>Northstar<small>Python Developer</small></p>
                     </div>
-
                     <div>
                         <b>Interview</b>
-                        <p>
-                            Bright Labs
-                            <small>Backend Engineer</small>
-                        </p>
-                        <p>
-                            CloudNine
-                            <small>SDE Intern</small>
-                        </p>
+                        <p>Bright Labs<small>Backend Engineer</small></p>
+                        <p>CloudNine<small>SDE Intern</small></p>
                     </div>
-
                     <div>
                         <b>Offer</b>
-                        <p>
-                            Acme Tech
-                            <small>Developer Trainee</small>
-                        </p>
+                        <p>Acme Tech<small>Developer Trainee</small></p>
                     </div>
                 </div>
 
                 <div class="mock-footer">
-                    ✦ One place for the whole journey
+                    <span>✓</span>
+                    One place for the whole journey
                 </div>
             </div>
         </div>
 
-        <div class="floating-tag">✓ Interview scheduled</div>
+        <div class="floating-tag">
+            <span>✓</span>
+            Interview scheduled
+        </div>
     </div>
 </section>
 
 <section class="feature-strip">
-    <div>
-        <b>▦</b>
-        <span>
+    <article class="feature-item">
+        <span class="feature-icon">▦</span>
+        <div>
             <strong>One clear dashboard</strong>
             <small>Know where everything stands</small>
-        </span>
-    </div>
+        </div>
+    </article>
 
-    <div>
-        <b>◷</b>
-        <span>
+    <article class="feature-item">
+        <span class="feature-icon">◷</span>
+        <div>
             <strong>Never miss a date</strong>
             <small>Track interviews and follow-ups</small>
-        </span>
-    </div>
+        </div>
+    </article>
 
-    <div>
-        <b>✧</b>
-        <span>
+    <article class="feature-item">
+        <span class="feature-icon">✧</span>
+        <div>
             <strong>Resume skill matcher</strong>
-            <small>Compare skills with job posts</small>
-        </span>
-    </div>
+            <small>Compare your resume with job posts</small>
+        </div>
+    </article>
 </section>
 
 <section class="landing-bottom">
     <div>
         <span class="eyebrow">A BETTER WAY TO SEARCH</span>
-        <h2>
-            Make your next move<br>
-            with more confidence.
-        </h2>
+        <h2>Make your next move<br>with more confidence.</h2>
+        <p>Build a more organized job search, one application at a time.</p>
     </div>
 
-    <a class="btn btn-primary" href="{{ url_for('register') }}">
-        Build your tracker →
+    <a class="btn btn-primary btn-lg"
+       href="{{ url_for('register') }}">
+        Build your tracker <span>→</span>
     </a>
 </section>
 {% endblock %}
-'''
