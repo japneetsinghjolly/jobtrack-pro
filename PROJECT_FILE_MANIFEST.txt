@@ -1,0 +1,49 @@
+JOBTRACK PRO — COMPLETE PROJECT FILE MANIFEST
+================================================
+
+BACKEND
+- app.py                         Flask application, routes, models, authentication, CSV export,
+                                 dashboard metrics, application CRUD, resume/job-description matcher,
+                                 health endpoint and production configuration.
+
+FRONTEND TEMPLATES
+- templates/base.html           Shared layout, navigation, flash messages and footer.
+- templates/landing.html        Public landing page.
+- templates/auth.html           Login and registration screens.
+- templates/dashboard.html      Dashboard, metrics, activity chart, status breakdown and reminders.
+- templates/applications.html   Application list, search, filters and sorting.
+- templates/application_form.html Add/edit application form.
+- templates/matcher.html        Resume/job description matching screen.
+- templates/error.html          Friendly error page.
+
+STYLES AND INTERACTIONS
+- static/css/style.css          Responsive premium visual design and mobile layouts.
+- static/js/main.js             Mobile navigation and dismissible notifications.
+
+CONFIGURATION / DEPLOYMENT
+- requirements.txt               Python dependencies.
+- Procfile                       Gunicorn start command.
+- runtime.txt                    Python runtime pin.
+- render.yaml                    Render web service and database blueprint.
+- .env.example                   Example local environment variables (never put real secrets here).
+- .gitignore                     Excludes secrets, local databases, virtual environments and caches.
+
+TOOLS / DOCUMENTATION
+- import_sample_data.py          Optional sample application importer.
+- smoke_test.py                  Basic route smoke test.
+- README_SETUP.txt               Setup, environment and deployment instructions.
+- PROJECT_FILE_MANIFEST.txt      This inventory.
+
+SETUP NOTES
+1. Extract the ZIP and open a terminal inside the jobtrack-pro folder.
+2. Create and activate a Python virtual environment.
+3. Install dependencies: pip install -r requirements.txt
+4. Copy .env.example to .env and set a unique SECRET_KEY for local development.
+5. Run: python app.py
+6. For Render, configure the environment variables and persistent PostgreSQL database.
+7. Optional: register an account before running import_sample_data.py; configure SAMPLE_USER_EMAIL.
+
+IMPORTANT
+- The archive contains the source/configuration files listed above.
+- Third-party email delivery, password reset emails, OAuth, and external AI APIs are not included/configured.
+- Always test database migrations and all routes on a staging deployment before using real data.

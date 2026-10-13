@@ -1,0 +1,23 @@
+services:
+  - type: web
+    name: jobtrack-pro
+    runtime: python
+    plan: free
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn app:app
+    healthCheckPath: /health
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.12.7
+      - key: FLASK_ENV
+        value: production
+      - key: SECRET_KEY
+        generateValue: true
+      - key: DATABASE_URL
+        fromDatabase:
+          name: jobtrack-pro-db
+          property: connectionString
+
+databases:
+  - name: jobtrack-pro-db
+    plan: free
