@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block title %}{{ code }} — JobTrack Pro{% endblock %}
+{% block content %}
+<section class="panel error-page">
+  <div class="error-number">{{ code }}</div>
+  <div class="eyebrow">A SMALL DETOUR</div>
+  <h1>{{ title }}</h1>
+  <p>{{ message }}</p>
+  <a class="button button-primary" href="{{ url_for('index') }}">Back to home <span>↗</span></a>
+</section>
+{% endblock %}

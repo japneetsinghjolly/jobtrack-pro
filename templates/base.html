@@ -1,0 +1,11 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>{% block title %}JobTrack Pro{% endblock %}</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">{% block head %}{% endblock %}</head><body>
+<header class="site-header"><nav class="navbar container"><a class="brand" href="{{ url_for('index') }}"><span class="brand-logo">JT</span><span class="brand-name">JobTrack<span>Pro</span></span></a>
+<button class="menu-toggle" aria-label="Toggle menu" aria-expanded="false"><span></span><span></span><span></span></button><div class="nav-links">
+{% if current_user() %}<a href="{{ url_for('dashboard') }}">Dashboard</a><a href="{{ url_for('applications') }}">Applications</a><a href="{{ url_for('matcher') }}">Resume matcher</a><a class="button primary small" href="{{ url_for('new_application') }}">+ Add application</a><form method="post" action="{{ url_for('logout') }}" class="logout-form"><input type="hidden" name="csrf_token" value="{{ csrf_token() }}"><button class="nav-button">Log out</button></form>
+{% else %}<a href="{{ url_for('index') }}">Home</a><a href="{{ url_for('login') }}">Log in</a><a class="button primary small" href="{{ url_for('register') }}">Get started →</a>{% endif %}</div></nav></header>
+{% with messages=get_flashed_messages(with_categories=true) %}{% if messages %}<div class="container flashes">{% for category,message in messages %}<div class="flash {{ category }}">{{ message }}<button type="button" class="flash-close">×</button></div>{% endfor %}</div>{% endif %}{% endwith %}
+<main>{% block content %}{% endblock %}</main><footer><div class="container footer"><a class="brand" href="{{ url_for('index') }}"><span class="brand-logo mini">JT</span><span class="brand-name">JobTrack<span>Pro</span></span></a><p>Make your next career move with confidence.</p><small>© 2026 JobTrack Pro</small></div></footer>
+<script src="{{ url_for('static',filename='js/main.js') }}" defer></script>{% block scripts %}{% endblock %}</body></html>
